@@ -7,7 +7,7 @@
 
 using std::string;
 
-// Function declarations
+// TODO: specify what operator is written
 
 int main() {
     string text;
