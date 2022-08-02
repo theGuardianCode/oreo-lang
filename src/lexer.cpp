@@ -48,31 +48,31 @@ bool is_operator(string* text) {
     return false;
 }
 
-void lex(string text) {
+Token lex(string text) {
     Token token;
     if (is_operator(&text)) {
         std::cout << text << ": operator" << std::endl;
-        // token.type = "Operator";
-        // token.value = text;
-        // token.endPos = text.length();
-        // return token;
+        token.type = "Operator";
+        token.value = text;
+        token.endPos = text.length();
+        return token;
     }
 
     if (is_keyword(&text)) {
         std::cout << text << ": keyword" << std::endl;
-        // token.type = "Keyword";
-        // token.value = text;
-        // token.endPos = text.length();
-        // return token;
+        token.type = "Keyword";
+        token.value = text;
+        token.endPos = text.length();
+        return token;
     } 
     
     if (!is_operator(&text) && !is_keyword(&text)) {
         std::cout << text << ": identifier" << std::endl;
-        // token.type = "Identifier";
-        // token.value = text;
-        // token.endPos = text.length();
-        // return token;
+        token.type = "Identifier";
+        token.value = text;
+        token.endPos = text.length();
+        return token;
     }
 
-    // return token;
+    return token;
 }

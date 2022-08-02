@@ -1,2 +1,2 @@
 # oreo-lang
-My programming language. Used for plugins or extensions for apps i develop
+My programming language. Used for plugins or extensions for apps I develop

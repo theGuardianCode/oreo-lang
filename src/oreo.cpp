@@ -11,10 +11,11 @@ using std::string;
 
 int main() {
     string text;
-    Token currentToken;
     string tokenValue = "";
     std::ifstream File("src/Code.oreo");
     std::ofstream NewFile("out/Scribe.txt");
+
+    std::vector<Token> tokens;
 
     while (!File.eof()) {
         // look ahead until it finds a break character
@@ -22,7 +23,7 @@ int main() {
 
         for (int i = 0; i < text.length(); i++) {
             if (text[i] == ' ' || File.eof()) {
-                lex(tokenValue);
+                tokens.push_back(lex(tokenValue));
                 tokenValue = "";
                 break;
             } else {
@@ -31,9 +32,8 @@ int main() {
         }
     }
 
+    // parse happens here
+
     File.close();
     NewFile.close();
-
-    // get token separated by space
-    // std::cout << currentToken.value << ": " << currentToken.type << std::endl;
 }
