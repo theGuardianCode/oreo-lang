@@ -20,7 +20,7 @@ int main() {
     int linecount = 0;
     bool done = false;
     while (std::getline(File, text) && done == false) {
-        // look ahead until it finds a space
+        // look ahead until it finds a break character
         for (int i = 0; i < text.length(); i++) {
             tokenValue.push_back(text[i]);
             if (text[i+1] == ' ' || text[i+1] == ';') {
@@ -28,8 +28,8 @@ int main() {
                 std::cout << currentToken.value << ": " << currentToken.type << "\n";
                 std::cout << "Break" << std::endl;
                 tokenValue = "";
-                // done = true;
-                break;
+                //done = true;
+                //break;
             }
         }
 
