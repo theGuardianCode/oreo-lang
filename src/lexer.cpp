@@ -1,4 +1,5 @@
 #include <string>
+#include <iostream>
 using std::string;
 
 struct Token {
@@ -47,28 +48,31 @@ bool is_operator(string* text) {
     return false;
 }
 
-Token lex(string text) {
+void lex(string text) {
     Token token;
     if (is_operator(&text)) {
-        token.type = "Operator";
-        token.value = text;
-        token.endPos = text.length();
-        return token;
+        std::cout << text << ": operator" << std::endl;
+        // token.type = "Operator";
+        // token.value = text;
+        // token.endPos = text.length();
+        // return token;
     }
 
     if (is_keyword(&text)) {
-        token.type = "Keyword";
-        token.value = text;
-        token.endPos = text.length();
-        return token;
+        std::cout << text << ": keyword" << std::endl;
+        // token.type = "Keyword";
+        // token.value = text;
+        // token.endPos = text.length();
+        // return token;
     } 
     
     if (!is_operator(&text) && !is_keyword(&text)) {
-        token.type = "Identifier";
-        token.value = text;
-        token.endPos = text.length();
-        return token;
+        std::cout << text << ": identifier" << std::endl;
+        // token.type = "Identifier";
+        // token.value = text;
+        // token.endPos = text.length();
+        // return token;
     }
 
-    return token;
+    // return token;
 }

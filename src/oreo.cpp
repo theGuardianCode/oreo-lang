@@ -9,7 +9,6 @@ using std::string;
 
 // Function declarations
 
-
 int main() {
     string text;
     Token currentToken;
@@ -17,23 +16,19 @@ int main() {
     std::ifstream File("src/Code.oreo");
     std::ofstream NewFile("out/Scribe.txt");
 
-    int linecount = 0;
-    bool done = false;
-    while (std::getline(File, text) && done == false) {
+    while (!File.eof()) {
         // look ahead until it finds a break character
+        text = File.get();
+
         for (int i = 0; i < text.length(); i++) {
-            tokenValue.push_back(text[i]);
-            if (text[i+1] == ' ' || text[i+1] == ';') {
-                currentToken = lex(tokenValue);
-                std::cout << currentToken.value << ": " << currentToken.type << "\n";
-                std::cout << "Break" << std::endl;
+            if (text[i] == ' ' || File.eof()) {
+                lex(tokenValue);
                 tokenValue = "";
-                //done = true;
-                //break;
+                break;
+            } else {
+                tokenValue.push_back(text[i]);
             }
         }
-
-        linecount++;
     }
 
     File.close();
