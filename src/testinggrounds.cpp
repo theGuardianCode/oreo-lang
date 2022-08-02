@@ -1,10 +1,12 @@
 #include <iostream>
-
-void prove(int& number) {
-    std::cout << number;
-}
+#include <string>
+#include <fstream>
 
 int main() {
-    int age = 15;
-    prove(age);
+    std::ifstream File("src/Code.oreo");
+    std::string value;
+
+    std::getline(File, value);
+
+    std::cout << value << std::endl;
 }

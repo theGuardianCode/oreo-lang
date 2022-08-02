@@ -1,63 +1,44 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <vector>
+
+#include "lexer.hpp"
+
 using std::string;
 
 // Function declarations
-bool is_keyword(string text);
 
-struct Token {
-    string type;
-    string value;
-    int endPos;
-};
-
-string Keywords[8] = {
-    "if",
-    "else",
-    "elsif",
-    "while",
-    "for",
-    "string",
-    "int",
-    "float"
-};
-
-string Operators[7] = {
-    "+",
-    "-",
-    "/",
-    "*",
-    "<",
-    ">",
-    "=",
-};
-
-bool is_keyword(string text) {
-    for (int i = 0; i < 8; i++) {
-        if (text == Keywords[i]) {
-            return true;
-        }
-    }
-    return false;
-}
-
-Token lex(string text) {
-    Token token;
-    if (is_keyword(text)) {
-        token.type = "Keyword";
-        token.value = text;
-        token.endPos = text.length();
-        return token;
-    }
-    return token;
-}
 
 int main() {
     string text;
-    std::ifstream File("Code.oreo");
-    std::getline(File, text);
+    Token currentToken;
+    string tokenValue = "";
+    std::ifstream File("src/Code.oreo");
+    std::ofstream NewFile("out/Scribe.txt");
 
-    Token currentToken = lex(text);
-    std::cout << currentToken.value << ": " << currentToken.type << std::endl;
+    int linecount = 0;
+    bool done = false;
+    while (std::getline(File, text) && done == false) {
+        // look ahead until it finds a space
+        for (int i = 0; i < text.length(); i++) {
+            tokenValue.push_back(text[i]);
+            if (text[i+1] == ' ' || text[i+1] == ';') {
+                currentToken = lex(tokenValue);
+                std::cout << currentToken.value << ": " << currentToken.type << "\n";
+                std::cout << "Break" << std::endl;
+                tokenValue = "";
+                // done = true;
+                break;
+            }
+        }
+
+        linecount++;
+    }
+
+    File.close();
+    NewFile.close();
+
+    // get token separated by space
+    // std::cout << currentToken.value << ": " << currentToken.type << std::endl;
 }
