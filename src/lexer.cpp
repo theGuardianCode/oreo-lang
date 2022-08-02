@@ -39,6 +39,15 @@ bool is_keyword(string* text) {
     return false;
 }
 
+bool is_integer(string& text) {
+    for (auto ch: text) {
+        if (isdigit(ch) == 0) {
+            return false;
+        }
+    }
+    return true;
+}
+
 bool is_operator(string* text) {
     for (int i = 0; i < 7; i++) {
         if (*text == Operators[i]) {
@@ -64,9 +73,17 @@ Token lex(string text) {
         token.value = text;
         token.endPos = text.length();
         return token;
-    } 
+    }
+
+    if (is_integer(text)) {
+        std::cout << text << ": integer" << std::endl;
+        token.type = "integer";
+        token.value = text;
+        token.endPos = text.length();
+        return token;
+    }
     
-    if (!is_operator(&text) && !is_keyword(&text)) {
+    if (!is_operator(&text) && !is_keyword(&text) && !is_integer(text)) {
         std::cout << text << ": identifier" << std::endl;
         token.type = "Identifier";
         token.value = text;
