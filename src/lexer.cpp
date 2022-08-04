@@ -21,7 +21,7 @@ string Keywords[8] = {
     "float"
 };
 
-char Operators[7] = {
+char Operators[10] = {
     '+',
     '-',
     '/',
@@ -29,16 +29,22 @@ char Operators[7] = {
     '<',
     '>',
     '=',
+    '!',
+    '(',
+    ')'
 };
 
-string OperatorNames[7] = {
+string OperatorNames[10] = {
     "add",
     "subtract",
     "divide",
     "multiply",
     "greater than",
     "less than",
-    "equals"
+    "assignment",
+    "logical not",
+    "left bracket",
+    "right bracket"
 };
 
 bool is_keyword(string* text) {
@@ -61,18 +67,36 @@ bool is_integer(string& text) {
 
 string is_operator(string& text) {
     string twoCharOp = "";
+    string twoCharName = "";
     if (text.length() > 1) {
         for (int i = 0; i < 7; i++) {
             for (int j = 0; j < 7; j++) {
                 if (text[0] == Operators[i] && text[1] == Operators[j]) {
                     twoCharOp.push_back(Operators[i]);
                     twoCharOp.push_back(Operators[j]);
-                    return twoCharOp;
+                    if (twoCharOp == "<=") {
+                        twoCharName = "greater than or equal to";
+                    } else if (twoCharOp == ">=") {
+                        twoCharName = "less that or equal to";
+                    } else if (twoCharOp == "+=") {
+                        twoCharName = "addition assignment";
+                    } else if (twoCharOp == "-=") {
+                        twoCharName = "subtraction assignment";
+                    } else if (twoCharOp == "*=") {
+                        twoCharName = "multiplication assignment";
+                    } else if (twoCharOp == "/=") {
+                        twoCharName = "division assignment";
+                    } else if (twoCharOp == "==") {
+                        twoCharName = "equal-to";
+                    } else if (twoCharOp == "!=") {
+                        twoCharName = "not equal-to";
+                    }
+                    return twoCharName;
                 }
             }
         }
     }
-    for (int i = 0; i < 7; i++) {
+    for (int i = 0; i < 10; i++) {
         if (text == string(1, Operators[i])) {
             return OperatorNames[i];
         }
@@ -82,9 +106,11 @@ string is_operator(string& text) {
 
 Token lex(string text) {
     Token token;
-    if (is_operator(text) != "") {
-        std::cout << text << ": " << is_operator(text) << std::endl;
-        token.type = is_operator(text);
+    string opString = is_operator(text);
+
+    if (opString != "") {
+        std::cout << text << ": " << opString << std::endl;
+        token.type = opString;
         token.value = text;
         token.endPos = text.length();
         return token;
@@ -106,7 +132,7 @@ Token lex(string text) {
         return token;
     }
     
-    if (is_operator(text) == "" && !is_keyword(&text) && !is_integer(text)) {
+    if (opString == "" && !is_keyword(&text) && !is_integer(text)) {
         std::cout << text << ": identifier" << std::endl;
         token.type = "Identifier";
         token.value = text;
