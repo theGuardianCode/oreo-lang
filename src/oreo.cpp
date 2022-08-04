@@ -4,15 +4,14 @@
 #include <vector>
 
 #include "lexer.hpp"
+#include "parser.hpp"
 
 using std::string;
 
-// TODO: specify what operator is written
-
-int main() {
+int main(int argc, char **argv) {
     string text;
     string tokenValue = "";
-    std::ifstream File("src/Code.oreo");
+    std::ifstream File(argv[1]);
     std::ofstream NewFile("out/Scribe.txt");
 
     std::vector<Token> tokens;
@@ -33,6 +32,8 @@ int main() {
     }
 
     // parse happens here
+    parse(tokens, tokens.size());
+    
 
     File.close();
     NewFile.close();

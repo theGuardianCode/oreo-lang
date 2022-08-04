@@ -21,7 +21,7 @@ string Keywords[8] = {
     "float"
 };
 
-char Operators[8] = {
+char Operators[10] = {
     '+',
     '-',
     '/',
@@ -29,10 +29,12 @@ char Operators[8] = {
     '<',
     '>',
     '=',
-    '!'
+    '!',
+    '(',
+    ')'
 };
 
-string OperatorNames[8] = {
+string OperatorNames[10] = {
     "add",
     "subtract",
     "divide",
@@ -40,7 +42,9 @@ string OperatorNames[8] = {
     "greater than",
     "less than",
     "assignment",
-    "logical not"
+    "logical not",
+    "left bracket",
+    "right bracket"
 };
 
 bool is_keyword(string* text) {
@@ -75,7 +79,7 @@ string is_operator(string& text) {
                     } else if (twoCharOp == ">=") {
                         twoCharName = "less that or equal to";
                     } else if (twoCharOp == "+=") {
-                        twoCharName == "addition assignment";
+                        twoCharName = "addition assignment";
                     } else if (twoCharOp == "-=") {
                         twoCharName = "subtraction assignment";
                     } else if (twoCharOp == "*=") {
@@ -92,7 +96,7 @@ string is_operator(string& text) {
             }
         }
     }
-    for (int i = 0; i < 7; i++) {
+    for (int i = 0; i < 10; i++) {
         if (text == string(1, Operators[i])) {
             return OperatorNames[i];
         }
