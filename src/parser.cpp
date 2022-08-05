@@ -19,7 +19,10 @@ void parse(std::vector<Token> tokenVec, int length) {
         if (is_operator(tokenVec[i].value) != "") {
             Node node = {tokenVec[i].value, new Node({tokenVec[i-1].value, NULL, NULL}), new Node({tokenVec[i+1].value, NULL, NULL})};
             syntaxTree.push_back(node);
-            std::cout << syntaxTree[0].left->data << " -> " << syntaxTree[0].data << " <- " << syntaxTree[0].right->data << "\n";
         }
+    }
+
+    for (int i = 0; i < syntaxTree.size(); i++) {
+        std::cout << syntaxTree[i].left->data << " -> " << syntaxTree[i].data << " <- " << syntaxTree[i].right->data << "\n";
     }
 }
