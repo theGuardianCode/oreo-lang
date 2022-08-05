@@ -13,7 +13,13 @@ struct Node {
 
 void parse(std::vector<Token> tokenVec, int length) {
     std::vector<Node> syntaxTree;
-    Node node = {tokenVec[1].value, new Node({tokenVec[0].value, NULL, NULL}), new Node({tokenVec[2].value, NULL, NULL})};
-    syntaxTree.push_back(node);
-    std::cout << syntaxTree[0].left->data << " -> " << syntaxTree[0].data << " <- " << syntaxTree[0].right->data << "\n";
+    // Node node = {tokenVec[1].value, new Node({tokenVec[0].value, NULL, NULL}), new Node({tokenVec[2].value, NULL, NULL})};
+    // syntaxTree.push_back(node);
+    for (int i = 0; i < length; i++) {
+        if (is_operator(tokenVec[i].value) != "") {
+            Node node = {tokenVec[i].value, new Node({tokenVec[i-1].value, NULL, NULL}), new Node({tokenVec[i+1].value, NULL, NULL})};
+            syntaxTree.push_back(node);
+            std::cout << syntaxTree[0].left->data << " -> " << syntaxTree[0].data << " <- " << syntaxTree[0].right->data << "\n";
+        }
+    }
 }
