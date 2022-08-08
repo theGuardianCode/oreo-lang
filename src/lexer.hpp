@@ -9,6 +9,7 @@ Token lex(string text);
 
 bool is_keyword(string* text);
 bool is_integer(string& text);
+bool is_float(string& text);
 string is_operator(string& text);
 
 #endif

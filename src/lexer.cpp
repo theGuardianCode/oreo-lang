@@ -65,6 +65,15 @@ bool is_integer(string& text) {
     return true;
 }
 
+bool is_float(string& text) {
+    try {
+        double parsed = std::stod(text);
+        return true;
+    } catch(std::exception& ia) {
+        return false;
+    }
+}
+
 string is_operator(string& text) {
     string twoCharOp = "";
     string twoCharName = "";
@@ -131,8 +140,16 @@ Token lex(string text) {
         token.endPos = text.length();
         return token;
     }
+
+    if (is_float(text)) {
+        std::cout << text << ": float" << std::endl;
+        token.type = "float";
+        token.value = text;
+        token.endPos = text.length();
+        return token;
+    }
     
-    if (opString == "" && !is_keyword(&text) && !is_integer(text)) {
+    if (opString == "" && !is_keyword(&text) && !is_integer(text) && !is_float(text)) {
         std::cout << text << ": identifier" << std::endl;
         token.type = "Identifier";
         token.value = text;
