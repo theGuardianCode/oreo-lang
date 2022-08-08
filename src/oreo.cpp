@@ -32,7 +32,8 @@ int main(int argc, char **argv) {
     }
 
     // parse happens here
-    parse(tokens, tokens.size());
+    Parser parser(tokens);
+    Node ast = parser.Parse();
     
 
     File.close();
