@@ -8,6 +8,7 @@ using std::string;
 
 Parser::Parser(std::vector<Token> _tokens) {
     tokens = _tokens;
+    advance();
 }
 
 Token Parser::advance() {
@@ -22,7 +23,6 @@ Node Parser::factor() {
     Token token = CurrentTok;
 
     if (token.type == "integer" || token.type == "float") {
-        std::cout << "Test\n";
         advance();
         return Node(token);
     }
@@ -50,7 +50,6 @@ Node Parser::expression() {
         Node right = term();
         left = Node(OperatorToken, &left, &right);
     }
-
     return left;
 }
 
