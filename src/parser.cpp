@@ -49,6 +49,7 @@ Node Parser::expression() {
         advance();
         Node right = term();
         left = Node(OperatorToken, &left, &right);
+        std::cout << left.right->data << "\n";
     }
     return left;
 }

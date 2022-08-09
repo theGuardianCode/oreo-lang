@@ -1,0 +1,3 @@
+func main (int arg1, int arg2) {
+    var name : string = "nick";
+};

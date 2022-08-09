@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <iostream>
 #include "lexer.hpp"
 
 struct Node {
@@ -15,9 +16,11 @@ struct Node {
         data = token.value;
         type = token.type;
         if (left != NULL) {
+            std::cout << "left exists" << "\n";
             left = _left;
         }
         if (right != NULL) {
+            std::cout << "right exists" << "\n";
             right = _right;
         }
     }

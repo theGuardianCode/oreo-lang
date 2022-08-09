@@ -35,7 +35,7 @@ int main(int argc, char **argv) {
     Parser parser(tokens);
     Node ast = parser.Parse();
 
-    std::cout << ast.left->data << "\n";
+    std::cout << "Data: " << ast.right->data << "\n";
 
     File.close();
     NewFile.close();
